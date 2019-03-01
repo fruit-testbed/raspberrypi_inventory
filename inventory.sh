@@ -1,5 +1,5 @@
 #!/bin/sh
-DONELED=led1
+DONELED=led0
 SERVER=$(cat server.txt)
 SERIAL=$(cat /proc/cpuinfo | grep ^Serial | head -n1 | awk '{print $3}')
 
