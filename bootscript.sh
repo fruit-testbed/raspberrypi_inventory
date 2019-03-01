@@ -8,7 +8,7 @@ else
 fi
 SERVER=$(cat server.txt)
 
-rm liveinventory.sh
+rm -f liveinventory.sh
 while [ ! -s liveinventory.sh ]
 do
     echo "Downloading $SERVER/inventory.sh to liveinventory.sh..."
