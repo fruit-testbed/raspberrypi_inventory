@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /boot/inventory
+cd $(dirname $0)
 if grep -q 'options single-request-reopen' /etc/resolv.conf
 then
         :
