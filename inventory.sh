@@ -1,10 +1,13 @@
 #!/bin/sh
-DONELED=led0
+DONELEDS=led0 led1
 SERVER=$(cat server.txt)
 SERIAL=$(cat /proc/cpuinfo | grep ^Serial | head -n1 | awk '{print $3}')
 
-echo none > /sys/class/leds/${DONELED}/trigger
-echo 0 > /sys/class/leds/${DONELED}/brightness
+for DONELED in ${DONELEDS}
+do
+    echo none > /sys/class/leds/${DONELED}/trigger
+    echo 0 > /sys/class/leds/${DONELED}/brightness
+done
 
 upload() {
     curl --data-binary @- "${SERVER}/cgi-bin/data.cgi/${SERIAL}/$1"
@@ -17,4 +20,7 @@ ifconfig 2>&1 | upload ifconfig &
 iwconfig 2>&1 | upload iwconfig &
 wait
 
-echo heartbeat > /sys/class/leds/${DONELED}/trigger
+for DONELED in ${DONELEDS}
+do
+    echo heartbeat > /sys/class/leds/${DONELED}/trigger
+done
