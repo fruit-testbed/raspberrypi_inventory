@@ -56,7 +56,8 @@ case "$revision" in
 esac
 printf '%s\t' "$kind"
 
-awk 'BEGIN { FS=":"; ORS=" "; }; /^[a-zA-Z0-9]/ { if ($1 != "lo") { print $1 } }' $entry/ifconfig \
+cat $entry/ifconfig | tr -d ':' \
+    | awk 'BEGIN { ORS=" "; }; /^[a-zA-Z0-9]/ { if ($1 != "lo") { print $1 } }' \
     | sed -e 's/ \+$//'
 
 printf '\n'
